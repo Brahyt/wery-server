@@ -4,7 +4,11 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const knex = require('knex');
 
+const db = knex({
+
+})
 const app = express();
 
 const morganOption = (NODE_ENV === 'production')
