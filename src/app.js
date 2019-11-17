@@ -5,9 +5,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const knex = require('knex');
+const apiRoute = require('./routes')
 
 const db = knex({
-
+  client: 'pg',
+  connectionString: process.env.DB_URL
 })
 const app = express();
 
@@ -18,10 +20,7 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-
-app.get('/', (req, res) => {
-  res.status(200).send('done');
-});
+app.use('/api', apiRoute);
 
 
 
