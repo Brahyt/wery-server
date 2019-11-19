@@ -2,14 +2,22 @@ const UserService = {
   getAllUsers() {
 
   },
-  getUserById() {
-
+  getUserById(db, id) {
+    return db('users')
+      .select('*')
+      .where('user_id', id)
+      .then(user => user[0])
   },
-  createUser() {
-
+  createUser(db, newUser) {
+    return db
+      .insert(newUser)
+      .into('users')
+      .returning('*')
+      .then(user => user[0])
   },
-  deleteUserById(){
-
+  deleteUserById(db, user_id){
+    return db('users')
+      .delete('user_id', user_id)
   },
   updateUserById(){
 
