@@ -66,7 +66,7 @@ describe('App', () => {
           .expect(200)
       })
     });
-    describe.only('/api/parties', () => {
+    describe('/api/parties', () => {
       it('/GET /api/parties responds with 200', () => {
         return supertest(app)
           .get('/api/parties')
@@ -75,6 +75,11 @@ describe('App', () => {
             expect(result.body[0]).to.eql({party_id:1, name: 'Coolest Test Party'})
           })
       });
+      it.only('/GET /api/parties/:party_id responds when choosing a party not there', () => {
+        return supertest(app)
+          .get('/api/parties/111111')
+          .expect(404)
+      })
       it('/GET /api/parties/:party_id responds with object containing party 1', () => {
         return supertest(app)
           .get('/api/parties/1')

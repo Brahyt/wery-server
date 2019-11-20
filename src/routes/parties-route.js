@@ -21,12 +21,18 @@ partiesRoute
 
 partiesRoute
   .route('/:party_id')
-  .get((req, res) => {
+  .get((req, res, next) => {
     const party_id = req.params.party_id
     PartiesService.getPartyById(req.app.get('db'), party_id)
       .then(result => {
-        res.json(PartiesService.serializeParty(result))
+        if(!result.body) {
+          res.send(404)
+        } else {
+          res.json(PartiesService.serializeParty(result))
+        }
       })
+      .catch(next)
   })
+
 
 module.exports = partiesRoute;
