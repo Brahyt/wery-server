@@ -6,14 +6,15 @@ const PartiesService = require('../services/parties-service');
 partiesRoute
   .route('/')
   .get((req, res) => {
-    res.send(200)
+    PartiesService.getAllParties(req.app.get('db'))
+      .then(result => {
+        res.json(PartiesService.serializeAllPartyReturn(result))
+      })
   })
   .post(jsonParse, (req, res) => {
     const newParty = req.body
-    console.log('create party')
     PartiesService.createNewParty(req.app.get('db'), newParty)
       .then(result => {
-        console.log('RESULT', result)
         res.json(PartiesService.serializePartyReturn(result))
       })
   })

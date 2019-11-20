@@ -4,16 +4,13 @@ const PartiesService = {
   },
   getPartyById(db, id) {
     return db('party as p')
-      .select(
-        '*',
-        'p.name as party_name'
-      )
-      .leftJoin('characters AS c',
-        'c.party_id',
-        'p.party_id')
-      .join('equipment_pack as ep',
+      .select('*', 'p.name as party_name')
+      .leftJoin('characters AS c', 'c.party_id', 'p.party_id')
+      .join(
+        'equipment_pack as ep',
         'ep.equipment_pack_id',
-        'c.equipment_pack_id')
+        'c.equipment_pack_id',
+      )
       .where('c.party_id', id);
   },
   deletePartyById(db, id) {
@@ -30,15 +27,25 @@ const PartiesService = {
     return db('party')
       .insert(newParty)
       .returning('*')
-      .then(result => result[0])
+      .then(result => result[0]);
   },
-  serializePartyReturn(result){
+  serializeAllPartyReturn(result) {
+    return [
+      ...result.map(item => {
+        return {
+          party_id: item.party_id,
+          name: item.name,
+        };
+      }),
+    ];
+  },
+  serializePartyReturn(result) {
     return {
       party_id: result.party_id,
-      name: result.name
-    }
+      name: result.name,
+    };
   },
-  serializeParty(result){
+  serializeParty(result) {
     return {
       party_id: result[0].party_id,
       party_name: result[0].party_name,
@@ -58,10 +65,10 @@ const PartiesService = {
             martial: char.martial,
             devotion: char.devotion,
           };
-        })
-      ]
+        }),
+      ],
     };
-  }
+  },
 };
 
 module.exports = PartiesService;

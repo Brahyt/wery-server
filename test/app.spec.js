@@ -70,7 +70,10 @@ describe('App', () => {
       it('/GET /api/parties responds with 200', () => {
         return supertest(app)
           .get('/api/parties')
-          .expect(200);
+          .then(result => {
+            expect(result.body).to.be.an('array').with.lengthOf(3)
+            expect(result.body[0]).to.eql({party_id:1, name: 'Coolest Test Party'})
+          })
       });
       it('/GET /api/parties/:party_id responds with object containing party 1', () => {
         return supertest(app)
