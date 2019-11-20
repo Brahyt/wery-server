@@ -97,6 +97,7 @@ const CharactersService = {
       .first()
   },
   addCharacter(db, charPayload) {
+    this.ValidateCharacter(charPayload)
     const newCharPayload = {
       name: charPayload.name,
       race: charPayload.race,
@@ -139,7 +140,9 @@ const CharactersService = {
         })
     })
   },
-
+  ValidateCharacter(char, req, res, next){
+    if(!char.name) return res.json({error: "You are missing values"})
+  },
   SerializeCharacter(result) {
     return {
       char_id: result.char_id,

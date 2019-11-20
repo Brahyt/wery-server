@@ -57,7 +57,7 @@ describe('App', () => {
             return supertest(app)
               .post('/api/characters')
               .send(fixtures.failTestCharacter())
-              .expect(404)
+              .expect({error: "You are missing values"})
           })
         })
       })
