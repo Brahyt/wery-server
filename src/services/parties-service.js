@@ -1,3 +1,5 @@
+const xss = require('xss')
+
 const PartiesService = {
   getAllParties(db) {
     return db('party').select('*');
@@ -34,7 +36,7 @@ const PartiesService = {
       ...result.map(item => {
         return {
           party_id: item.party_id,
-          name: item.name,
+          name: xss(item.name),
         };
       }),
     ];

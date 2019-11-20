@@ -1,0 +1,3 @@
+ALTER TABLE characters
+ADD user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE
+;

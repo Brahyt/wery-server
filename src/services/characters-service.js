@@ -1,7 +1,9 @@
 // RETURNS CHARACTERS FROM USER
 const CharactersService = {
-  getAllCharacters(db) {
-    return db('characters').select('*');
+  getAllCharacters(db, id) {
+    return db('characters')
+      .select('*')
+      .where('user_id', id)
   },
   getCharacterById(db, id) {
     return db('characters AS char')
@@ -85,7 +87,13 @@ const CharactersService = {
       .where('char_id', id)
       .insert(updatedChar)
       .returning('*')
-      .then(row => row[0]);
+      .then(row => row[0])
+  },
+  checkCharacterExists(db, id) {
+    return db('characters')
+      .select('char_id')
+      .where('char_id', id)
+      .first()
   },
   addCharacter() {},
 

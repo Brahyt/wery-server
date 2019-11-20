@@ -39,31 +39,49 @@ describe('App', () => {
       fixtures.cleanTables(db);
     });
     describe('/api/characters', () => {
-      it('/GET /characters responds with 200', () => {
-        return supertest(app)
-          .get('/api/characters')
-          .expect(200);
-      });
-      it('/GET /characters/:char_id responds with 200', () => {
-        return supertest(app)
-          .get('/api/characters/1')
-          .then(result => {
-            expect(200)
-          })
-      });
-      it('/patch /characters/:char_id responds with 200', () => {
-        return supertest(app)
-          .patch('/api/characters/1')
-          .send(fixtures.testCharacter())
-          .then(result => {
-            expect(result.body.name).to.equal('updated')
-            expect(result.body.xp).to.equal(88)
-          })
+      context('SAD PATH', () => {
+        it('/GET /characters/:char_id wrong char_id responds with 404', () => {
+          return supertest(app)
+            .get('/api/characters/111')
+            .expect(404, {error: "No Character with that id"})
+        })
+        it('/PATCH /characters/:char_id wrong char_id responds with 404', () => {
+          return supertest(app)
+            .patch('/api/characters/111')
+            .send({hand_size: 3})
+            .expect(404, {error: "No Character with that id"})
+        })
       })
-      it('/delete /characters/:char_id shoule delete a character', () => {
-        return supertest(app)
-          .delete('/api/characters/1')
-          .expect(200)
+      context('HAPPY PATH', () => {
+        it('/GET /characters responds with 200', () => {
+          return supertest(app)
+            .get('/api/characters')
+            .then(result => {
+              expect(result.body).to.be.an('array').to.have.lengthOf(4)
+            })
+        });
+        it('/GET /characters/:char_id responds with 200', () => {
+          return supertest(app)
+            .get('/api/characters/1')
+            .then(result => {
+              expect(200)
+            })
+        });
+        it('/patch /characters/:char_id responds with 200', () => {
+          return supertest(app)
+            .patch('/api/characters/1')
+            .send(fixtures.testCharacter())
+            .then(result => {
+              expect(result.body.name).to.equal('updated')
+              expect(result.body.xp).to.equal(88)
+            })
+        })
+        it('/delete /characters/:char_id shoule delete a character', () => {
+          return supertest(app)
+            .delete('/api/characters/1')
+            .expect(200)
+        })
+        
       })
     });
     describe('/api/parties', () => {
