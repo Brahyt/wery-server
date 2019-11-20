@@ -72,11 +72,12 @@ describe('App', () => {
           .get('/api/parties')
           .expect(200);
       });
-      it('/GET /api/parties/:party_id responds with party and characters', () => {
-        console.log("TEST PARTIES PANDA")
+      it('/GET /api/parties/:party_id responds with object containing party 1', () => {
         return supertest(app)
           .get('/api/parties/1')
-          .expect(200)
+          .then(result => {
+            expect(result.body).to.deep.include({party_id: 1})
+          })
       })
     });
     describe('/api/users', () => {
