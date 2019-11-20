@@ -79,6 +79,15 @@ describe('App', () => {
             expect(result.body).to.deep.include({party_id: 1})
           })
       })
+      it('/POST /api/parties creates a party and returns the party created', () => {
+        return supertest(app)
+          .post('/api/parties')
+          .send({name: "New Test Party"})
+          .expect(200, {
+            party_id: 4,
+            name: "New Test Party"
+          });
+      });
     });
     describe('/api/users', () => {
       it('/GET /users responds with 200', () => {

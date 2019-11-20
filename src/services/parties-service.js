@@ -26,7 +26,18 @@ const PartiesService = {
       .where('party_id', id)
       .update(updatedParty);
   },
-  createNewParty() {},
+  createNewParty(db, newParty) {
+    return db('party')
+      .insert(newParty)
+      .returning('*')
+      .then(result => result[0])
+  },
+  serializePartyReturn(result){
+    return {
+      party_id: result.party_id,
+      name: result.name
+    }
+  },
   serializeParty(result){
     return {
       party_id: result[0].party_id,

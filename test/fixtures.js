@@ -256,6 +256,12 @@ function cleanTables(db) {
   )
 }
 
+function makeNewParty(){
+  return
+    {
+      name: "New Test Party"
+    }
+}
 module.exports = {
   makeUsersArray,
   seedData,
@@ -264,4 +270,5 @@ module.exports = {
   makeCharactersArray,
   makeEquipPack,
   testCharacter,
+  makeNewParty,
 };
