@@ -75,17 +75,17 @@ describe('App', () => {
             expect(result.body[0]).to.eql({party_id:1, name: 'Coolest Test Party'})
           })
       });
-      it.only('/GET /api/parties/:party_id responds when choosing a party not there', () => {
-        return supertest(app)
-          .get('/api/parties/111111')
-          .expect(404)
-      })
       it('/GET /api/parties/:party_id responds with object containing party 1', () => {
         return supertest(app)
           .get('/api/parties/1')
           .then(result => {
             expect(result.body).to.deep.include({party_id: 1})
           })
+      })
+      it('/GET /api/parties/:party_id responds when choosing a party not there', () => {
+        return supertest(app)
+          .get('/api/parties/111')
+          .expect(404, {error:  "No party with that id"})
       })
       it('/POST /api/parties creates a party and returns the party created', () => {
         return supertest(app)

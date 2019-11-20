@@ -11,7 +11,7 @@ const PartiesService = {
         'ep.equipment_pack_id',
         'c.equipment_pack_id'
       )
-      .where('c.party_id', id)
+      .where('c.party_id', id);
   },
   deletePartyById(db, id) {
     return db('party')
