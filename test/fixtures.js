@@ -28,6 +28,28 @@ function makePartyArray() {
     }
   ]
 }
+
+function testCharacter () {
+  return [
+    {
+      name: "updated",
+      race: "Human",
+      char_class: "Arcane",
+      sub_class: "Wizard",
+      xp: 88,
+      hand_size: 5,
+      health: 12,
+      equipment_pack_id: 1,
+      party_id: 1,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
+    }
+  ]
+}
 function makeCharactersArray () {
   return [
     {
@@ -56,7 +78,13 @@ function makeCharactersArray () {
       hand_size: 5,
       health: 10,
       equipment_pack_id: 1,
-      party_id: 1
+      party_id: 1,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
     },
     {
       name: "opha",
@@ -67,7 +95,13 @@ function makeCharactersArray () {
       hand_size: 5,
       health: 10,
       equipment_pack_id: 3,
-      party_id: 1
+      party_id: 1,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
     },
     {
       name: "opha",
@@ -78,7 +112,81 @@ function makeCharactersArray () {
       hand_size: 5,
       health: 10,
       equipment_pack_id: 2,
-      party_id: 1
+      party_id: 1,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
+    },
+    {
+      name: "opha",
+      race: "Human",
+      char_class: "Arcane",
+      sub_class: "Wizard",
+      xp: 30,
+      hand_size: 5,
+      health: 10,
+      equipment_pack_id: 2,
+      party_id: 3,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
+    },
+    {
+      name: "opha",
+      race: "Human",
+      char_class: "Arcane",
+      sub_class: "Wizard",
+      xp: 30,
+      hand_size: 5,
+      health: 10,
+      equipment_pack_id: 2,
+      party_id: 2,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
+    },
+    {
+      name: "opha",
+      race: "Human",
+      char_class: "Arcane",
+      sub_class: "Wizard",
+      xp: 30,
+      hand_size: 5,
+      health: 10,
+      equipment_pack_id: 2,
+      party_id: 2,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
+    },
+    {
+      name: "opha",
+      race: "Human",
+      char_class: "Arcane",
+      sub_class: "Wizard",
+      xp: 30,
+      hand_size: 5,
+      health: 10,
+      equipment_pack_id: 2,
+      party_id: 2,
+      sticker_1_id: 1,
+      sticker_2_id: 2,
+      sticker_3_id: 3,
+      sticker_4_id: 4,
+      sticker_5_id: 5,
+      sticker_6_id: 1
     },
   ]
 }
@@ -155,4 +263,5 @@ module.exports = {
   makePartyArray,
   makeCharactersArray,
   makeEquipPack,
+  testCharacter,
 };

@@ -35,7 +35,7 @@ const CharactersService = {
         's5.sticker_cost AS s5_cost',
         's6.sticker_title AS s6_title',
         's6.sticker_description AS s6_description',
-        's6.sticker_cost AS s6_cost',
+        's6.sticker_cost AS s6_cost'
       )
       .join(
         'equipment_pack AS ep',
@@ -83,7 +83,9 @@ const CharactersService = {
   updateCharacter(db, id, updatedChar) {
     return db('characters')
       .where('char_id', id)
-      .update(updatedChar);
+      .insert(updatedChar)
+      .returning('*')
+      .then(row => row[0]);
   },
   addCharacter() {},
 
@@ -136,7 +138,7 @@ const CharactersService = {
           cost: result.s6_cost
         },
       ]
-    }
+    };
   }
 };
 

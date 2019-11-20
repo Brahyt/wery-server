@@ -19,10 +19,10 @@ describe('App', () => {
   after('Destroy connection to db', () => {
     return db.destroy();
   });
-  before('Clear data from db', () => {
-    fixtures.cleanTables(db);
-  });
   describe('Routes', () => {
+    beforeEach('Clear data from db', () => {
+      return fixtures.cleanTables(db);
+    });
     beforeEach('Add users to db', () => {
       return db.into('users').insert(dummyUsers);
     });
@@ -44,21 +44,40 @@ describe('App', () => {
           .get('/api/characters')
           .expect(200);
       });
-      it.only('/GET /characters/:char_id responds with 200', () => {
+      it('/GET /characters/:char_id responds with 200', () => {
         return supertest(app)
           .get('/api/characters/1')
           .then(result => {
-            console.log(result.body)
             expect(200)
           })
       });
+      it('/patch /characters/:char_id responds with 200', () => {
+        return supertest(app)
+          .patch('/api/characters/1')
+          .send(fixtures.testCharacter())
+          .then(result => {
+            expect(result.body.name).to.equal('updated')
+            expect(result.body.xp).to.equal(88)
+          })
+      })
+      it('/delete /characters/:char_id shoule delete a character', () => {
+        return supertest(app)
+          .delete('/api/characters/1')
+          .expect(200)
+      })
     });
-    describe('/api/parties', () => {
-      it('/GET parties responds with 200', () => {
+    describe.only('/api/parties', () => {
+      it('/GET /api/parties responds with 200', () => {
         return supertest(app)
           .get('/api/parties')
           .expect(200);
       });
+      it('/GET /api/parties/:party_id responds with party and characters', () => {
+        console.log("TEST PARTIES PANDA")
+        return supertest(app)
+          .get('/api/parties/1')
+          .expect(200)
+      })
     });
     describe('/api/users', () => {
       it('/GET /users responds with 200', () => {
