@@ -38,18 +38,27 @@ describe('App', () => {
     afterEach('Clear data from db', () => {
       fixtures.cleanTables(db);
     });
-    describe('/api/characters', () => {
+    describe.only('/api/characters', () => {
       context('SAD PATH', () => {
-        it('/GET /characters/:char_id wrong char_id responds with 404', () => {
-          return supertest(app)
-            .get('/api/characters/111')
-            .expect(404, {error: "No Character with that id"})
+        context('INVALID ENDPOINTS', () => {
+          it('/GET /characters/:char_id wrong char_id responds with 404', () => {
+            return supertest(app)
+              .get('/api/characters/111')
+              .expect(404, {error: "No Character with that id"})
+          })
+          it('/PATCH /characters/:char_id wrong char_id responds with 404', () => {
+            return supertest(app)
+              .patch('/api/characters/111')
+              .expect(404, {error: "No Character with that id"})
+          })
         })
-        it('/PATCH /characters/:char_id wrong char_id responds with 404', () => {
-          return supertest(app)
-            .patch('/api/characters/111')
-            .send({hand_size: 3})
-            .expect(404, {error: "No Character with that id"})
+        context('INVALID PAYLOAD', () => {
+          it('/POST /characters/ invalid data', () => {
+            return supertest(app)
+              .post('/api/characters')
+              .send(fixtures.failTestCharacter())
+              .expect(404)
+          })
         })
       })
       context('HAPPY PATH', () => {
@@ -74,6 +83,16 @@ describe('App', () => {
             .then(result => {
               expect(result.body.name).to.equal('updated')
               expect(result.body.xp).to.equal(88)
+            })
+        })
+        it('/POST /characters/ posts successfully', () => {
+          return supertest(app)
+            .post('/api/characters')
+            .send(fixtures.fullTestCharacter())
+            .then(response => {
+              expect(response.body).to.be.an('object')
+              expect(response.body.equipment_pack_id).to.equal(5)
+              expect(response.body.char_id).to.equal(9)
             })
         })
         it('/delete /characters/:char_id shoule delete a character', () => {

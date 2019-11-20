@@ -3,12 +3,19 @@ const charactersRoute = express.Router();
 const parseJson = express.json();
 const CharactersService = require('../services/characters-service');
 
-charactersRoute.route('/').get((req, res, next) => {
-  const auth_key = req.app.get('Authorization');
-  CharactersService.getAllCharacters(req.app.get('db'), 1)
-    .then(result => res.status(200).send(result))
-    .catch(next);
-});
+charactersRoute
+  .route('/')
+  .get((req, res, next) => {
+    const auth_key = req.app.get('Authorization');
+    CharactersService.getAllCharacters(req.app.get('db'), 1)
+      .then(result => res.status(200).send(result))
+      .catch(next);
+  })
+  .post(parseJson, (req, res, next) => {
+    CharactersService.addCharacter(req.app.get('db'), req.body)
+      .then(result => res.status(200).send(result))
+      .catch(next)
+  })
 
 charactersRoute
   .route('/:char_id')

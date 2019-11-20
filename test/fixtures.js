@@ -51,6 +51,52 @@ function testCharacter () {
     }
   ]
 }
+function fullTestCharacter () {
+  return {
+    name: 'New Test Dude',
+    race: "Human",
+    char_class: "Arcane",
+    sub_class: "Wizard",
+    xp: 66,
+    hand_size: 6,
+    health: 6,
+    arcane: 3,
+    deception: 4,
+    martial: 2,
+    devotion: 2,
+    party_id: 1,
+    user_id: 1,
+    sticker_1_id: 1,
+    sticker_2_id: 2,
+    sticker_3_id: 3,
+    sticker_4_id: 4,
+    sticker_5_id: 5,
+    sticker_6_id: 1
+    }
+}
+function failTestCharacter () {
+  return {
+    race: "Human",
+    char_class: "Arcane",
+    sub_class: "Wizard",
+    xp: 66,
+    hand_size: 6,
+    health: 6,
+    arcane: 3,
+    deception: 4,
+    martial: 2,
+    devotion: 2,
+    party_id: 1,
+    user_id: 1,
+    sticker_1_id: 1,
+    sticker_2_id: 2,
+    sticker_3_id: 3,
+    sticker_4_id: 4,
+    sticker_5_id: 5,
+    sticker_6_id: 1
+    }
+
+}
 function makeCharactersArray () {
   return [
     {
@@ -280,4 +326,6 @@ module.exports = {
   makeEquipPack,
   testCharacter,
   makeNewParty,
+  fullTestCharacter,
+  failTestCharacter,
 };

@@ -9,6 +9,7 @@ const CharactersService = {
     return db('characters AS char')
       .select(
         'char.char_id',
+        'char.user_id',
         'char.name',
         'char.race',
         'char.char_class',
@@ -95,11 +96,54 @@ const CharactersService = {
       .where('char_id', id)
       .first()
   },
-  addCharacter() {},
+  addCharacter(db, charPayload) {
+    const newCharPayload = {
+      name: charPayload.name,
+      race: charPayload.race,
+      char_class: charPayload.char_class,
+      sub_class: charPayload.sub_class,
+      xp: charPayload.xp,
+      hand_size: charPayload.hand_size,
+      health: charPayload.health,
+      party_id: charPayload.party_id,
+      user_id: charPayload.user_id,
+      sticker_1_id: charPayload.sticker_1_id,
+      sticker_2_id: charPayload.sticker_2_id,
+      sticker_3_id: charPayload.sticker_3_id,
+      sticker_4_id: charPayload.sticker_4_id,
+      sticker_5_id: charPayload.sticker_5_id,
+      sticker_6_id: charPayload.sticker_6_id
+    }
+    const epPayload = {
+      arcane: charPayload.arcane,
+      deception: charPayload.deception,
+      martial: charPayload.martial,
+      devotion: charPayload.devotion
+    }
+    return db.transaction(function (trx) {
+      return db('equipment_pack')
+        .transacting(trx)
+        .insert(epPayload)
+        .returning("*")
+        .then(response => {
+          return db('characters')
+            .transacting(trx)
+            .insert({
+              ...newCharPayload,
+              equipment_pack_id: response[0].equipment_pack_id
+            })
+            .returning('*')
+            .then(response => {
+              return response[0]
+            })
+        })
+    })
+  },
 
   SerializeCharacter(result) {
     return {
       char_id: result.char_id,
+      user_id: result.user_id,
       name: result.name,
       race: result.race,
       char_class: result.char_class,
