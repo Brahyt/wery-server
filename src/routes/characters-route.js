@@ -32,7 +32,6 @@ function validateCharacter(req, res, next){
 charactersRoute
   .route('/')
   .get((req, res, next) => {
-    const auth_key = req.app.get('Authorization');
     CharactersService.getAllCharacters(req.app.get('db'), 1)
       .then(result => res.status(200).send(result))
       .catch(next);

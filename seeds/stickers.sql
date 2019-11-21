@@ -1,4 +1,5 @@
-NSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('Acolyte','Once per game, during your turn: Exchange 2 of any icon for 1 devotion icon.','Background');
+INSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('None','None','None');
+INSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('Acolyte','Once per game, during your turn: Exchange 2 of any icon for 1 devotion icon.','Background');
 INSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('Criminal','Once per game, during your turn: Discard one card for 1 gold.','Background');
 INSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('Entertainer','Once per game, during your turn: Discard a card and you may permanently ignore a Requires X Play/Purchase/Class on one card','Background');
 INSERT INTO stickers(sticker_title,sticker_description,sticker_cost) VALUES ('Folk Hero','Once per game, during your turn Exchange 2HP for 1 Gold.','Background');
