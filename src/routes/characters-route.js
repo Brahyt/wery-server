@@ -3,30 +3,30 @@ const charactersRoute = express.Router();
 const parseJson = express.json();
 const CharactersService = require('../services/characters-service');
 
-function validateCharacter(req, res, next){
-  const error = {error: "You are missing values"}
-  const char = req.body
-  if(!req.body) return res.json(error).status(400)
-  if(!char.name) return res.json(error).status(400)
-  if(!char.race) return res.json(error).status(400)
-  if(!char.char_class) return res.json(error).status(400)
-  if(!char.sub_class) return res.json(error).status(400)
-  if(!char.xp) return res.json(error).status(400)
-  if(!char.hand_size) return res.json(error).status(400)
-  if(!char.health) return res.json(error).status(400)
-  if(!char.arcane) return res.json(error).status(400)
-  if(!char.deception) return res.json(error).status(400)
-  if(!char.martial) return res.json(error).status(400)
-  if(!char.devotion) return res.json(error).status(400)
-  if(!char.party_id) return res.json(error).status(400)
-  if(!char.user_id) return res.json(error).status(400)
-  if(!char.sticker_1_id) return res.json(error).status(400)
-  if(!char.sticker_2_id) return res.json(error).status(400)
-  if(!char.sticker_3_id) return res.json(error).status(400)
-  if(!char.sticker_4_id) return res.json(error).status(400)
-  if(!char.sticker_5_id) return res.json(error).status(400)
-  if(!char.sticker_6_id) return res.json(error).status(400)
-  next()
+function validateCharacter(req, res, next) {
+  const error = {error: 'You are missing values'};
+  const char = req.body;
+  if (!req.body) return res.json(error).status(400);
+  if (!char.name) return res.json(error).status(400);
+  if (!char.race) return res.json(error).status(400);
+  if (!char.char_class) return res.json(error).status(400);
+  if (!char.sub_class) return res.json(error).status(400);
+  if (!char.xp) return res.json(error).status(400);
+  if (!char.hand_size) return res.json(error).status(400);
+  if (!char.health) return res.json(error).status(400);
+  if (!char.arcane) return res.json(error).status(400);
+  if (!char.deception) return res.json(error).status(400);
+  if (!char.martial) return res.json(error).status(400);
+  if (!char.devotion) return res.json(error).status(400);
+  if (!char.party_id) return res.json(error).status(400);
+  if (!char.user_id) return res.json(error).status(400);
+  if (!char.sticker_1_id) return res.json(error).status(400);
+  if (!char.sticker_2_id) return res.json(error).status(400);
+  if (!char.sticker_3_id) return res.json(error).status(400);
+  if (!char.sticker_4_id) return res.json(error).status(400);
+  if (!char.sticker_5_id) return res.json(error).status(400);
+  if (!char.sticker_6_id) return res.json(error).status(400);
+  next();
 }
 
 charactersRoute
@@ -39,8 +39,8 @@ charactersRoute
   .post(parseJson, validateCharacter, (req, res, next) => {
     CharactersService.addCharacter(req.app.get('db'), req.body)
       .then(result => res.status(200).send(result))
-      .catch(next)
-  })
+      .catch(next);
+  });
 
 charactersRoute
   .route('/:char_id')
@@ -66,11 +66,10 @@ charactersRoute
           return CharactersService.updateCharacter(
             req.app.get('db'),
             char_id,
-            updatedChar
-          )
-            .then(result => {
-              return res.send(result);
-            });
+            updatedChar,
+          ).then(result => {
+            return res.send(result);
+          });
         }
       })
       .catch(next);
@@ -83,7 +82,7 @@ charactersRoute
           res.json({error: 'no character with that ID'});
         }
         res.json({message: 'character deleted'});
-      }
+      },
     );
   });
 

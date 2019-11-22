@@ -173,5 +173,16 @@ describe('App', () => {
           .expect(200);
       });
     });
+    describe.only('/api/stickers' ,() => {
+      it('/GET /stickers returns all the stickers', () => {
+        return supertest(app)
+          .get('/api/stickers')
+          .then(result => {
+            expect(result.body).to.be.an('array')
+            expect(result.body[0]).to.contain({sticker_id: 1})
+            expect(result.body[50]).to.contain({sticker_id: 51})
+          })
+      })
+    })
   });
 });
