@@ -6,7 +6,7 @@ stickersRoute
   .get((req, res, next) => {
     StickersService.getAllStickers(req.app.get('db'))
       .then(result => {
-        res.json(result)
+        res.json(result).status(200)
       })
       .catch(next)
   })

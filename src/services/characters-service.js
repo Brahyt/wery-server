@@ -10,6 +10,7 @@ const CharactersService = {
       .select(
         'char.char_id',
         'char.user_id',
+        'char.party_id',
         'char.name',
         'char.race',
         'char.char_class',
@@ -86,7 +87,7 @@ const CharactersService = {
   updateCharacter(db, id, updatedChar) {
     return db('characters')
       .where('char_id', id)
-      .insert(updatedChar)
+      .update(updatedChar)
       .returning('*')
       .then(row => row[0])
   },
@@ -147,6 +148,7 @@ const CharactersService = {
     return {
       char_id: result.char_id,
       user_id: result.user_id,
+      party_id: result.party_id,
       name: result.name,
       race: result.race,
       char_class: result.char_class,

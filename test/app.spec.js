@@ -173,7 +173,7 @@ describe('App', () => {
           .expect(200);
       });
     });
-    describe.only('/api/stickers' ,() => {
+    describe('/api/stickers' ,() => {
       it('/GET /stickers returns all the stickers', () => {
         return supertest(app)
           .get('/api/stickers')
