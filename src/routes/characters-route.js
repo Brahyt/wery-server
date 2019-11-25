@@ -32,13 +32,11 @@ function validateCharacter(req, res, next) {
 charactersRoute
   .route('/')
   .get((req, res, next) => {
-    console.log('THIS IS GET ')
     CharactersService.getAllCharacters(req.app.get('db'), 1)
       .then(result => res.status(200).send(result))
       .catch(next);
   })
   .post(parseJson, validateCharacter, (req, res, next) => {
-    console.log("THIS IS POST")
     CharactersService.addCharacter(req.app.get('db'), req.body)
       .then(result => res.status(200).send(result))
       .catch(next);
@@ -47,7 +45,6 @@ charactersRoute
 charactersRoute
   .route('/:char_id')
   .get((req, res, next) => {
-    console.log("GET CHAR_ID")
     const char_id = req.params.char_id;
     CharactersService.getCharacterById(req.app.get('db'), char_id)
       .then(result => {
@@ -59,10 +56,8 @@ charactersRoute
       .catch(next);
   })
   .patch(parseJson, (req, res, next) => {
-    console.log("THIS IS A ROUTE")
     const char_id = req.params.char_id;
     const updatedChar = req.body;
-    console.log("CHAR ROUTE", updatedChar)
     CharactersService.checkCharacterExists(req.app.get('db'), char_id)
       .then(result => {
         if (!result) {
