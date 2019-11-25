@@ -117,6 +117,7 @@ const CharactersService = {
       martial: charPayload.martial,
       devotion: charPayload.devotion
     }
+    console.log("UPDATE", charPayload)
     return db.transaction(function (trx) {
       return db('equipment_pack')
         .transacting(trx)
