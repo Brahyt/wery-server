@@ -9,7 +9,7 @@ const apiRoute = require('./routes');
 
 const db = knex({
   client: 'pg',
-  connection: process.env.DB_URL
+  connection: process.env.DATABASE_URL
 });
 
 const app = express();
