@@ -1,11 +1,11 @@
 // RETURNS CHARACTERS OM USER
 const CharactersService = {
-  getAllCharacters(db, id) {
+  getAllCharacters(db, user_id) {
     return db('characters')
       .select('*')
       .where('user_id', id)
   },
-  getCharacterById(db, id) {
+  getCharacterById(db, user_id) {
     return db('characters AS char')
       .select(
         'char.char_id',
