@@ -2,6 +2,7 @@ const express = require('express');
 const charactersRoute = express.Router();
 const parseJson = express.json();
 const CharactersService = require('../services/characters-service');
+const {requireAuth} = require('../middleware/basic-auth')
 
 function validateCharacter(req, res, next) {
   const error = {error: 'You are missing values'};
@@ -31,6 +32,7 @@ function validateCharacter(req, res, next) {
 
 charactersRoute
   .route('/')
+  .all(requireAuth)
   .get((req, res, next) => {
     CharactersService.getAllCharacters(req.app.get('db'), 1)
       .then(result => res.status(200).send(result))
@@ -44,6 +46,7 @@ charactersRoute
 
 charactersRoute
   .route('/:char_id')
+  .all(requireAuth)
   .get((req, res, next) => {
     const char_id = req.params.char_id;
     CharactersService.getCharacterById(req.app.get('db'), char_id)

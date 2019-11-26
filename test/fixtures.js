@@ -11,7 +11,11 @@ function makeUsersArray () {
     {
       user_email: 'user_2@gmail.com',
       user_password: 123456
-    }
+    },
+    {
+      user_email: 'test@test.com',
+      user_password: 'password'
+    },
   ];
 }
 
@@ -317,6 +321,11 @@ function makeNewParty(){
       name: "New Test Party"
     }
 }
+
+function makeAuthHeader(users){
+  const token = Buffer.from(`${users.user_email}:${users.user_password}`).toString('base64');
+  return `Basic ${token}`
+}
 module.exports = {
   makeUsersArray,
   seedData,
@@ -328,4 +337,5 @@ module.exports = {
   makeNewParty,
   fullTestCharacter,
   failTestCharacter,
+  makeAuthHeader,
 };

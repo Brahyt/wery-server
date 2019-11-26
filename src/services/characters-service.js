@@ -84,14 +84,6 @@ const CharactersService = {
       .where('char_id', id)
       .delete();
   },
-  //  updateCharacter(db, id, updatedChar) {
-  //
-  //    return db('characters')
-  //      .where('char_id', id)
-  //      .update(updatedChar)
-  //      .returning('*')
-  //      .then(row => row[0])
-  //  },
   updateCharacter(db, char_id, charPayload) {
     //    this.ValidateCharacter(charPayload)
     const newCharPayload = {
@@ -117,7 +109,6 @@ const CharactersService = {
       martial: charPayload.martial,
       devotion: charPayload.devotion
     }
-    console.log("UPDATE", charPayload)
     return db.transaction(function (trx) {
       return db('equipment_pack')
         .transacting(trx)

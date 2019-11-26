@@ -1,4 +1,4 @@
-const xss = require('xss')
+const xss = require('xss');
 
 const PartiesService = {
   getAllParties(db) {
@@ -18,7 +18,8 @@ const PartiesService = {
   deletePartyById(db, id) {
     return db('party')
       .select('*')
-      .where('party_id', id);
+      .where('party_id', id)
+      .delete();
   },
   updatePartyById(db, id, updatedParty) {
     return db('party')
