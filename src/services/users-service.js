@@ -13,14 +13,12 @@ const UserService = {
       .select('*')
       .where('user_email', newUser.user_email)
       .then(result => {
-        console.log(result.length === 0)
         if(result == 0) {
           return db
             .insert(newUser)
             .into('users')
             .returning('*')
             .then(user => {
-              console.log(user[0])
               return user[0]
             })
         } else {

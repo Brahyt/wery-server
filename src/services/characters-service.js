@@ -3,7 +3,7 @@ const CharactersService = {
   getAllCharacters(db, user_id) {
     return db('characters')
       .select('*')
-      .where('user_id', id)
+      .where('user_id', user_id)
   },
   getCharacterById(db, user_id) {
     return db('characters AS char')
