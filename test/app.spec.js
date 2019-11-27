@@ -1,6 +1,7 @@
 const app = require('../src/app');
 const knex = require('knex');
 const fixtures = require('./fixtures.js');
+const jwt = require('jsonwebtoken');
 
 const dummyUsers = fixtures.makeUsersArray();
 const dummyParties = fixtures.makePartyArray();
@@ -244,6 +245,26 @@ describe('App', () => {
           })
           .expect(403)
       })
-    })
+      it('/POST /auth/login returns with a JWT', () => {
+        const validUser = {
+          user_email: "user_1@gmail.com",
+          user_password: "password"
+        }
+        const expectedToken = jwt.sign(
+          {user_id: 1},
+          process.env.JWT_SECRET,
+          {
+            subject: "user_1@gmail.com",
+            algorithm: 'HS256',
+          }
+        );
+        return supertest(app)
+          .post('/api/auth/login')
+          .send(validUser)
+          .expect(200, {
+            authToken: expectedToken,
+          });
+      });
+    });
   });
 });
