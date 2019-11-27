@@ -226,5 +226,24 @@ describe('App', () => {
           })
       })
     })
+    describe.only('/api/auth/login', () => {
+      it('/POST /auth/login returns 200 when logging in correctly', () => {
+        return supertest(app)
+          .post('/api/auth/login')
+          .send({
+            user_email: "user_1@gmail.com",
+            user_password: "password"
+          })
+      })
+      it('/POST /auth/login returns 400 when loggin in incorrctly', () => {
+        return supertest(app)
+          .post('/api/auth/login')
+          .send({
+            user_email: "user_1@gmail.com",
+            user_password: "bAdPaSsSsS"
+          })
+          .expect(403)
+      })
+    })
   });
 });

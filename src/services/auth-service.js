@@ -2,12 +2,14 @@ const bcrypt = require('bcryptjs')
 
 const AuthService = {
   getUserWithUserName(db, user_email) {
+    console.log("TIS", user_email)
     return db('users')
       .where({ user_email })
-      .first
+      .first()
+      .then(result => result)
   },
   comparePasswords(user_password, hash) {
-    resturn bcrypt.compare(password, hash)
+    return bcrypt.compare(user_password, hash)
   },
-  parseBasicToken(token)
 }
+module.exports = AuthService;
