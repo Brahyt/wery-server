@@ -32,7 +32,7 @@ function validateCharacter(req, res, next) {
 
 charactersRoute
   .route('/')
-  .all(requireAuth)
+//  .all(requireAuth)
   .get((req, res, next) => {
     CharactersService.getAllCharacters(req.app.get('db'), 1)
       .then(result => res.status(200).send(result))
@@ -46,7 +46,7 @@ charactersRoute
 
 charactersRoute
   .route('/:char_id')
-  .all(requireAuth)
+//  .all(requireAuth)
   .get((req, res, next) => {
     const char_id = req.params.char_id;
     CharactersService.getCharacterById(req.app.get('db'), char_id)

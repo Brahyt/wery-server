@@ -1,9 +1,9 @@
 // RETURNS CHARACTERS OM USER
 const CharactersService = {
-  getAllCharacters(db, user_id) {
+  getAllCharacters(db, id) {
     return db('characters')
       .select('*')
-      .where('user_id', user_id)
+      .where('user_id', id)
   },
   getCharacterById(db, user_id) {
     return db('characters AS char')
@@ -76,7 +76,7 @@ const CharactersService = {
         'char.sticker_6_id',
         's6.sticker_id'
       )
-      .where('char_id', id)
+      .where('char_id', user_id)
       .first();
   },
   deleteCharacter(db, id) {
