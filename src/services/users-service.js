@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const UserService = {
   getAllUsers() {
 
@@ -14,12 +16,18 @@ const UserService = {
       .where('user_email', newUser.user_email)
       .then(result => {
         if(result == 0) {
-          return db
-            .insert(newUser)
-            .into('users')
-            .returning('*')
-            .then(user => {
-              return user[0]
+          return bcrypt.hash(newUser.user_email, 10)
+            .then(hash => {
+              return db
+                .insert({
+                  user_email: newUser.user_email,
+                  user_password: `${hash}`
+                })
+                .into('users')
+                .returning('*')
+                .then(user => {
+                  return user[0]
+                })
             })
         } else {
           return "User Exists"

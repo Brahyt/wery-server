@@ -2,19 +2,19 @@ function makeUsersArray () {
   return [
     {
       user_email: 'user_1@gmail.com',
-      user_password: 123456
+      user_password: '$2a$10$z9zGUGXFwprpOk4MMXjiHeHifNu/O9coO6qkaLOYrCX8hqjNdXi9m'
     },
     {
       user_email: 'user_2@gmail.com',
-      user_password: 123456
+      user_password: '$2a$10$z9zGUGXFwprpOk4MMXjiHeHifNu/O9coO6qkaLOYrCX8hqjNdXi9m'
     },
     {
       user_email: 'user_2@gmail.com',
-      user_password: 123456
+      user_password: '$2a$10$z9zGUGXFwprpOk4MMXjiHeHifNu/O9coO6qkaLOYrCX8hqjNdXi9m'
     },
     {
       user_email: 'test@test.com',
-      user_password: 'password'
+      user_password: '$2a$10$z9zGUGXFwprpOk4MMXjiHeHifNu/O9coO6qkaLOYrCX8hqjNdXi9m'
     },
   ];
 }

@@ -110,13 +110,12 @@ describe('App', () => {
               expect(result.body.equipment).to.be.an('object')
             })
         });
-        it.only('/PATCH /characters/:char_id responds with 200', () => {
+        it('/PATCH /characters/:char_id responds with 200', () => {
           return supertest(app)
             .patch('/api/characters/1')
             .set('Authorization', makeAuthHeader(testUser))
             .send(fixtures.testCharacter())
             .then(result => {
-              console.log(result.body)
               expect(result.body.xp).to.equal(88)
             })
         })
@@ -192,20 +191,20 @@ describe('App', () => {
           .expect({
             user_id: 1,
             user_email: 'user_1@gmail.com',
-            user_password: '123456',
+            user_password: '$2a$10$z9zGUGXFwprpOk4MMXjiHeHifNu/O9coO6qkaLOYrCX8hqjNdXi9m',
           });
       });
       it('/POST /user adds user', function() {
         const newUser = {
           user_email: 'new_user@gmail.com',
-          user_password: '123456',
+          user_password: 'password',
         };
         return supertest(app)
           .post('/api/users')
           .set('Authorization', makeAuthHeader(testUser))
           .send(newUser)
           .then(result => {
-            expect(result.body).to.contain(newUser);
+            expect(result.body).to.contain({user_email: 'new_user@gmail.com'});
           });
       });
       it('/DELETE /user/id deletes user', () => {

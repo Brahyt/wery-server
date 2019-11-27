@@ -61,7 +61,6 @@ charactersRoute
   .patch(parseJson, (req, res, next) => {
     const char_id = req.params.char_id;
     const updatedChar = req.body;
-    console.log(updatedChar)
     CharactersService.checkCharacterExists(req.app.get('db'), char_id)
       .then(result => {
         if (!result) {
