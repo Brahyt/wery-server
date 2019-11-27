@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 function makeUsersArray () {
   return [
     {
@@ -328,8 +329,15 @@ function makeNewParty(){
 }
 
 function makeAuthHeader(users){
-  const token = Buffer.from(`${users.user_email}:${users.user_password}`).toString('base64');
-  return `Basic ${token}`
+  const expectedToken = "Bearer " + jwt.sign(
+    {user_id: 1},
+    process.env.JWT_SECRET,
+    {
+      subject: "user_1@gmail.com",
+      algorithm: 'HS256',
+    }
+  )
+  return expectedToken
 }
 module.exports = {
   makeUsersArray,

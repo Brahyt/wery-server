@@ -14,7 +14,7 @@ usersRoute
       .then(user => {
         res.json(user);
       })
-      .catch(next)
+      .catch(next);
   });
 usersRoute
   .route('/:user_id')

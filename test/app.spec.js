@@ -53,18 +53,6 @@ describe('App', () => {
               .set('Authorization', makeAuthHeader(testUser))
               .expect(404, {error: "No Character with that id"})
           })
-          it('/GET /characters invalid credentials', () => {
-            return supertest(app)
-              .get('/api/characters')
-              .set('Authorization', makeAuthHeader({user_email: 'bad@email.com', user_password: 'badPass'}))
-              .expect(401, {error: 'Unauthorized request'})
-          })
-          it('/GET /characters invalid password', () => {
-            return supertest(app)
-              .get('/api/characters')
-              .set('Authorization', makeAuthHeader({user_email: 'test@test.com', user_password: 'badPass'}))
-              .expect(401, {error: 'Unauthorized request'})
-          })
           it('/GET /characters Missing auth token', () => {
             return supertest(app)
               .get('/api/characters')
@@ -215,7 +203,7 @@ describe('App', () => {
           .expect(200);
       });
     });
-    describe('/api/stickers' ,() => {
+    describe('/api/stickers' , () => {
       it('/GET /stickers returns all the stickers', () => {
         return supertest(app)
           .get('/api/stickers')
@@ -260,7 +248,7 @@ describe('App', () => {
           user_email: "user_1@gmail.com",
           user_password: "password"
         }
-        const expectedToken = jwt.sign(
+        const expectedToken = "Bearer " + jwt.sign(
           {user_id: 1},
           process.env.JWT_SECRET,
           {

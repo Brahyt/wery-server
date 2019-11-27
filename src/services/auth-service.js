@@ -15,10 +15,19 @@ const AuthService = {
     return bcrypt.compare(user_password, hash)
   },
   createJwt(subject, payload) {
-    return jwt.sign(payload, config.JWT_SECRET, {
-      subject,
+    console.log(subject, payload)
+    const token = jwt.sign(payload, config.JWT_SECRET, {
+      subject: subject,
+      algorithm: 'HS256'
+    })
+    console.log("TOKEN HERE", token)
+    return `Bearer ${token}`
+  },
+  verifyJwt(token){
+    console.log(token)
+    return jwt.verify(token, config.JWT_SECRET, {
       algorithm: 'HS256',
     })
-  }
+  },
 }
 module.exports = AuthService;

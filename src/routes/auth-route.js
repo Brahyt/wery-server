@@ -24,6 +24,7 @@ authRoute
             } else {
               const subject = grabUser.user_email;
               const payload = {user_id: grabUser.user_id}
+              console.log(subject, payload)
               return res.send({
                 authToken: AuthService.createJwt(subject, payload)
               })
