@@ -7,7 +7,9 @@ const AuthService = {
     return db('users')
       .where({ user_email })
       .first()
-      .then(result => result)
+      .then(result => {
+        return result
+      })
   },
   comparePasswords(user_password, hash) {
     return bcrypt.compare(user_password, hash)

@@ -8,12 +8,14 @@ usersRoute
   .get((req, res) => {
     return res.status(200).send('users');
   })
-  .post(jsonParse, (req, res) => {
+  .post(jsonParse, (req, res, next) => {
     const newUser = req.body;
+    console.log(newUser)
     UserService.createUser(req.app.get('db'), newUser)
       .then(user => {
         res.json(user);
-      });
+      })
+    .catch(next)
   });
 usersRoute
   .route('/:user_id')

@@ -228,6 +228,15 @@ describe('App', () => {
       })
     })
     describe.only('/api/auth/login', () => {
+      it('/POST /auth/login return 403 when using wrong username', () => {
+        return supertest(app)
+          .post('/api/auth/login')
+          .send({
+            user_email: "bad@email.com",
+            user_password: "password"
+          })
+          .expect(403)
+      })
       it('/POST /auth/login returns 200 when logging in correctly', () => {
         return supertest(app)
           .post('/api/auth/login')
@@ -235,6 +244,7 @@ describe('App', () => {
             user_email: "user_1@gmail.com",
             user_password: "password"
           })
+          .expect(200)
       })
       it('/POST /auth/login returns 400 when loggin in incorrctly', () => {
         return supertest(app)

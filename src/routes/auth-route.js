@@ -11,7 +11,13 @@ authRoute
     return AuthService.getUserWithUserName(req.app.get('db'), token.user_email)
       .then(userInfo => {
         let grabUser = userInfo
-        return AuthService.comparePasswords(token.user_password, userInfo.user_password)
+        if(!userInfo) return res
+          .status(403)
+          .json({error: "Incorrect username or password"})
+        return AuthService.comparePasswords(
+          token.user_password,
+          userInfo.user_password
+        )
           .then(result => {
             if(!result){
               res.status(403).json({error: "Incorrect username or password"})
