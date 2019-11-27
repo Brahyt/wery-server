@@ -223,11 +223,11 @@ describe('App', () => {
           .then(result => {
             expect(result.body).to.be.an('array')
             expect(result.body[0]).to.contain({sticker_id: 1})
-            expect(result.body[50]).to.contain({sticker_id: 51})
+            expect(result.body[51]).to.contain({sticker_id: 52})
           })
       })
     })
-    describe.only('/api/auth/login', () => {
+    describe('/api/auth/login', () => {
       it('/POST /auth/login return 403 when using wrong username', () => {
         return supertest(app)
           .post('/api/auth/login')
