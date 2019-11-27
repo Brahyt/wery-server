@@ -118,7 +118,7 @@ const CharactersService = {
         .then(response => {
           return db('characters')
             .transacting(trx)
-            .where("char_id", charPayload.char_id)
+            .where("char_id", char_id)
             .update({
               ...newCharPayload,
               equipment_pack_id: response[0].equipment_pack_id

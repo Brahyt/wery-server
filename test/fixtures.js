@@ -34,8 +34,9 @@ function makePartyArray() {
 }
 
 function testCharacter () {
-  return [
+  return (
     {
+      char_id: "1",
       name: "updated",
       race: "Human",
       char_class: "Arcane",
@@ -51,9 +52,13 @@ function testCharacter () {
       sticker_3_id: 3,
       sticker_4_id: 4,
       sticker_5_id: 5,
-      sticker_6_id: 1
+      sticker_6_id: 1,
+      arcane: 1,
+      devotion: 2,
+      martial: 3,
+      deception:4
     }
-  ]
+  )
 }
 function fullTestCharacter () {
   return {

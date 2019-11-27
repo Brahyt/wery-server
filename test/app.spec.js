@@ -110,12 +110,13 @@ describe('App', () => {
               expect(result.body.equipment).to.be.an('object')
             })
         });
-        it('/PATCH /characters/:char_id responds with 200', () => {
+        it.only('/PATCH /characters/:char_id responds with 200', () => {
           return supertest(app)
             .patch('/api/characters/1')
             .set('Authorization', makeAuthHeader(testUser))
             .send(fixtures.testCharacter())
             .then(result => {
+              console.log(result.body)
               expect(result.body.xp).to.equal(88)
             })
         })

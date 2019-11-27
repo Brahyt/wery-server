@@ -32,7 +32,7 @@ function validateCharacter(req, res, next) {
 
 charactersRoute
   .route('/')
-//  .all(requireAuth)
+  .all(requireAuth)
   .get((req, res, next) => {
     CharactersService.getAllCharacters(req.app.get('db'), 1)
       .then(result => res.status(200).send(result))
@@ -46,7 +46,7 @@ charactersRoute
 
 charactersRoute
   .route('/:char_id')
-//  .all(requireAuth)
+  .all(requireAuth)
   .get((req, res, next) => {
     const char_id = req.params.char_id;
     CharactersService.getCharacterById(req.app.get('db'), char_id)
@@ -61,6 +61,7 @@ charactersRoute
   .patch(parseJson, (req, res, next) => {
     const char_id = req.params.char_id;
     const updatedChar = req.body;
+    console.log(updatedChar)
     CharactersService.checkCharacterExists(req.app.get('db'), char_id)
       .then(result => {
         if (!result) {
@@ -72,7 +73,7 @@ charactersRoute
             updatedChar
           ).then(result => {
             return res.send(result);
-          });
+          })
         }
       })
       .catch(next);
