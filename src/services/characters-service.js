@@ -5,7 +5,7 @@ const CharactersService = {
       .select('*')
       .where('user_id', id)
   },
-  getCharacterById(db, user_id) {
+  getCharacterById(db, char_id, user_id) {
     return db('characters AS char')
       .select(
         'char.char_id',
@@ -76,7 +76,8 @@ const CharactersService = {
         'char.sticker_6_id',
         's6.sticker_id'
       )
-      .where('char_id', user_id)
+      .where('user_id', user_id)
+      .where('char_id', char_id)
       .first();
   },
   deleteCharacter(db, id) {
@@ -136,7 +137,7 @@ const CharactersService = {
       .where('char_id', id)
       .first()
   },
-  addCharacter(db, charPayload) {
+  addCharacter(db, charPayload, user_id) {
     this.ValidateCharacter(charPayload)
     const newCharPayload = {
       name: charPayload.name,
@@ -147,7 +148,7 @@ const CharactersService = {
       hand_size: charPayload.hand_size,
       health: charPayload.health,
       party_id: charPayload.party_id,
-      user_id: charPayload.user_id,
+      user_id: user_id,
       sticker_1_id: charPayload.sticker_1_id,
       sticker_2_id: charPayload.sticker_2_id,
       sticker_3_id: charPayload.sticker_3_id,

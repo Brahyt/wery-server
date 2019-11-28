@@ -34,12 +34,12 @@ charactersRoute
   .route('/')
   .all(requireAuth)
   .get((req, res, next) => {
-    CharactersService.getAllCharacters(req.app.get('db'), 1)
+    CharactersService.getAllCharacters(req.app.get('db'), req.user.user_id)
       .then(result => res.status(200).send(result))
       .catch(next);
   })
   .post(parseJson, validateCharacter, (req, res, next) => {
-    CharactersService.addCharacter(req.app.get('db'), req.body)
+    CharactersService.addCharacter(req.app.get('db'), req.body, req.user.user_id)
       .then(result => res.status(200).send(result))
       .catch(next);
   });
@@ -49,7 +49,7 @@ charactersRoute
   .all(requireAuth)
   .get((req, res, next) => {
     const char_id = req.params.char_id;
-    CharactersService.getCharacterById(req.app.get('db'), char_id)
+    CharactersService.getCharacterById(req.app.get('db'), char_id, req.user.user_id)
       .then(result => {
         if (!result) {
           return res.status(404).json({error: 'No Character with that id'});
