@@ -38,6 +38,7 @@ partiesRoute
       .catch(next);
   })
   .delete((req, res, next) => {
+    console.log("ACTIVATE DELETE")
     PartiesService.deletePartyById(req.app.get('db'), req.params.party_id)
       .then(() => {
         return res.json({"message": "party delteted"});
