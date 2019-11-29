@@ -1,10 +1,12 @@
 const xss = require('xss');
 
 const PartiesService = {
-  getAllParties(db) {
-    return db('party').select('*');
+  getAllParties(db, user_id) {
+    return db('party')
+      .select('*')
+      .where('user_id', user_id);
   },
-  getPartyById(db, id) {
+  getPartyById(db, id, user_id) {
     return db('party as p')
       .select('*', 'p.name as party_name')
       .leftJoin('characters AS c', 'c.party_id', 'p.party_id')
@@ -13,12 +15,14 @@ const PartiesService = {
         'ep.equipment_pack_id',
         'c.equipment_pack_id'
       )
-      .where('c.party_id', id);
+      .where('c.party_id', id)
+      .where('user_id', user_id);
   },
-  deletePartyById(db, id) {
+  deletePartyById(db, id, user_id) {
     return db('party')
       .select('*')
       .where('party_id', id)
+      .where('user_id', user_id)
       .delete();
   },
   updatePartyById(db, id, updatedParty) {

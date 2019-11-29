@@ -10,7 +10,7 @@ const dummyEquip = fixtures.makeEquipPack();
 const {makeAuthHeader} = fixtures;
 
 const testUser = {
-  user_email: "test@test.com",
+  user_email: "test1@test.com",
   user_password: "password"
 };
 describe('App', () => {
@@ -195,12 +195,6 @@ describe('App', () => {
           .then(result => {
             expect(result.body).to.contain({user_email: 'new_user@gmail.com'});
           });
-      });
-      it('/DELETE /user/id deletes user', () => {
-        return supertest(app)
-          .delete('/api/users/1')
-          .set('Authorization', makeAuthHeader(testUser))
-          .expect(200);
       });
     });
     describe('/api/stickers' , () => {

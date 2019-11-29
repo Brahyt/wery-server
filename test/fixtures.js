@@ -23,13 +23,16 @@ function makeUsersArray () {
 function makePartyArray() {
   return [
     {
-      name: "Coolest Test Party"
+      name: "Coolest Test Party",
+      user_id: 1
     },
     {
-      name: "Another Cool Party"
+      name: "Another Cool Party",
+      user_id: 1
     },
     {
-      name: "Supercool Party"
+      name: "Supercool Party",
+      user_id: 1
     }
   ]
 }
