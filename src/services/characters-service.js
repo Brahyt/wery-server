@@ -131,9 +131,10 @@ const CharactersService = {
         })
     })
   },
-  checkCharacterExists(db, id) {
+  checkCharacterExists(db, id, user_id) {
     return db('characters')
       .select('char_id')
+      .where('user_id', user_id)
       .where('char_id', id)
       .first()
   },

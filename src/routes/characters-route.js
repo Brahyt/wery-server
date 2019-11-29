@@ -49,7 +49,11 @@ charactersRoute
   .all(requireAuth)
   .get((req, res, next) => {
     const char_id = req.params.char_id;
-    CharactersService.getCharacterById(req.app.get('db'), char_id, req.user.user_id)
+    CharactersService.getCharacterById(
+      req.app.get('db'), 
+      char_id, 
+      req.user.user_id
+    )
       .then(result => {
         if (!result) {
           return res.status(404).json({error: 'No Character with that id'});
@@ -61,7 +65,11 @@ charactersRoute
   .patch(parseJson, (req, res, next) => {
     const char_id = req.params.char_id;
     const updatedChar = req.body;
-    CharactersService.checkCharacterExists(req.app.get('db'), char_id)
+    CharactersService.checkCharacterExists(
+      req.app.get('db'),
+      char_id, 
+      req.user.user_id
+    )
       .then(result => {
         if (!result) {
           return res.status(404).json({error: 'No Character with that id'});
