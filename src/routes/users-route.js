@@ -10,6 +10,7 @@ usersRoute
   })
   .post(jsonParse, (req, res, next) => {
     const newUser = req.body;
+    console.log(newUser)
     UserService.createUser(req.app.get('db'), newUser)
       .then(user => {
         res.json(user);

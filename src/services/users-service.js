@@ -11,12 +11,13 @@ const UserService = {
       .then(user => user[0]);
   },
   createUser(db, newUser) {
+    console.log(newUser)
     return db('users')
       .select('*')
       .where('user_email', newUser.user_email)
       .then(result => {
         if(result == 0) {
-          return bcrypt.hash(newUser.user_email, 10)
+          return bcrypt.hash(newUser.user_password, 10)
             .then(hash => {
               return db
                 .insert({

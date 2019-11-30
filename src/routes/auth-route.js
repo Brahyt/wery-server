@@ -19,6 +19,7 @@ authRoute
           userInfo.user_password
         )
           .then(result => {
+            console.log("HEREIROSIEROISMEORMSIEOMROS")
             if(!result){
               res.status(403).json({error: "Incorrect username or password"})
             } else {
