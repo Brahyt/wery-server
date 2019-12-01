@@ -12,7 +12,7 @@ partiesRoute
       .then(result => {
         res.json(PartiesService.serializeAllPartyReturn(result));
       })
-      .catch(next);
+      .catch(next)
   })
   .post(jsonParse, (req, res, next) => {
     const newParty = {
@@ -23,16 +23,23 @@ partiesRoute
       .then(result => {
         res.json(PartiesService.serializePartyReturn(result));
       })
-      .catch(next);
+      .catch(next)
   });
 
 partiesRoute
   .route('/:party_id')
   .all(requireAuth)
   .get((req, res, next) => {
-    PartiesService.getPartyById(req.app.get('db'), req.params.party_id, req.user.user_id)
+        console.log("PARTIES ROUTE")
+    PartiesService.getPartyById(
+      req.app.get('db'), 
+      req.params.party_id, 
+      req.user.user_id
+    )
       .then(result => {
+        console.log("PARTIES ROUTE", result)
         if(result.length === 0) {
+          console.log("NO PARTTY WITH THAT ID")
           res.status(404).json({error:  "No party with that id"});
         } else {
           res.json(PartiesService.serializeParty(result));
@@ -41,11 +48,11 @@ partiesRoute
       .catch(next);
   })
   .delete((req, res, next) => {
-    console.log("ACTIVATE DELETE")
     PartiesService.deletePartyById(req.app.get('db'), req.params.party_id, req.user.user_id)
       .then(() => {
         return res.json({"message": "party delteted"});
-      });
+      })
+      .catch(next)
   });
 
 

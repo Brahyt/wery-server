@@ -19,7 +19,6 @@ authRoute
           userInfo.user_password
         )
           .then(result => {
-            console.log("HEREIROSIEROISMEORMSIEOMROS")
             if(!result){
               res.status(403).json({error: "Incorrect username or password"})
             } else {
@@ -33,10 +32,5 @@ authRoute
           })
           .catch(next);
       });
-    //    for (const [key, value] of Object.entries(loginUser))
-    //      if (value == null)
-    //        return res.status(400).json({
-    //          error: `Missing ${key} in request body`
-    //        })
   });
 module.exports = authRoute;

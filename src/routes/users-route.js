@@ -19,16 +19,17 @@ usersRoute
   });
 usersRoute
   .route('/:user_id')
-  .get((req, res) => {
+  .get((req, res, next) => {
     const user_id = req.params.user_id;
     UserService.getUserById(req.app.get('db'), user_id)
       .then(user => {
         res.send(user).status(200);
-      });
+      })
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
     const user_id = req.params.user_id;
     UserService.deleteUserById(req.app.get('db'), user_id)
-      .then(result => res.send(result));
-  });
+      .then(result => res.send(result))
+        .catch(next)
+  })
 module.exports = usersRoute;
