@@ -1,4 +1,3 @@
-// RETURNS CHARACTERS OM USER
 const CharactersService = {
   getAllCharacters(db, id) {
     return db('characters')

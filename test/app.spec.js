@@ -78,6 +78,12 @@ describe('App', () => {
               .send(fixtures.failTestCharacter())
               .expect({error: "You are missing values"})
           })
+          it('/POST /users missing username on signup', () => {
+            return supertest(app)
+              .post('/api/users')
+              .send({user_email: "", user_password: 'newpass'})
+              .expect(400)
+          })
         })
       })
       context('HAPPY PATH', () => {
@@ -196,6 +202,12 @@ describe('App', () => {
             expect(result.body).to.contain({user_email: 'new_user@gmail.com'});
           });
       });
+      it('/POST /user without password responds with 400', () => {
+        return supertest(app)
+          .post('/api/users')
+          .send({user_email: "foo"})
+          .expect(400)
+      })
     });
     describe('/api/stickers' , () => {
       it('/GET /stickers returns all the stickers', () => {
@@ -237,7 +249,8 @@ describe('App', () => {
           })
           .expect(403)
       })
-      it('/POST /auth/login returns with a JWT', () => {
+      it('/POST /auth/login returns with a JWT', function() {
+        this.retries(3)
         const validUser = {
           user_email: "user_1@gmail.com",
           user_password: "password"

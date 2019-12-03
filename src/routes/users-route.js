@@ -10,10 +10,16 @@ usersRoute
   })
   .post(jsonParse, (req, res, next) => {
     const newUser = req.body;
-    console.log(newUser)
+    const { user_email, user_password } = newUser
+    if(!user_email) return res
+      .status(400)
+      .json({error: "No Username"})
+    if(!user_password) return res
+      .status(400)
+      .json({error: "No Password"})
     UserService.createUser(req.app.get('db'), newUser)
       .then(user => {
-        res.json(user);
+        return res.json(user);
       })
       .catch(next);
   });
@@ -23,13 +29,13 @@ usersRoute
     const user_id = req.params.user_id;
     UserService.getUserById(req.app.get('db'), user_id)
       .then(user => {
-        res.send(user).status(200);
+        return res.send(user).status(200);
       })
   })
   .delete((req, res, next) => {
     const user_id = req.params.user_id;
     UserService.deleteUserById(req.app.get('db'), user_id)
       .then(result => res.send(result))
-        .catch(next)
+      .catch(next)
   })
 module.exports = usersRoute;

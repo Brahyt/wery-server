@@ -8,7 +8,7 @@ authRoute
   .post(jsonParse, (req, res, next) => {
     let grabUser;
     let token = req.body
-    return AuthService.getUserWithUserName(req.app.get('db'), token.user_email)
+    AuthService.getUserWithUserName(req.app.get('db'), token.user_email)
       .then(userInfo => {
         let grabUser = userInfo
         if(!userInfo) return res
@@ -20,11 +20,13 @@ authRoute
         )
           .then(result => {
             if(!result){
-              res.status(403).json({error: "Incorrect username or password"})
+              return res
+                .status(403)
+                .json({error: "Incorrect username or password"})
+
             } else {
               const subject = grabUser.user_email;
               const payload = {user_id: grabUser.user_id}
-              console.log(subject, payload)
               return res.send({
                 authToken: AuthService.createJwt(subject, payload)
               })

@@ -1,9 +1,6 @@
 const bcrypt = require('bcryptjs');
 
 const UserService = {
-  getAllUsers() {
-
-  },
   getUserById(db, id) {
     return db('users')
       .select('*')
@@ -11,7 +8,6 @@ const UserService = {
       .then(user => user[0]);
   },
   createUser(db, newUser) {
-    console.log(newUser)
     return db('users')
       .select('*')
       .where('user_email', newUser.user_email)
@@ -41,6 +37,11 @@ const UserService = {
   },
   updateUserById(){
 
+  },
+  validateNewUser(newUser){
+    const {user_email, user_password} = newUser
+    if(!user_email) return false
+    if(!user_password) return false
   }
 };
 
