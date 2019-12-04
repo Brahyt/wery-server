@@ -1,3 +1,4 @@
+const xss = require('xss')
 const CharactersService = {
   getAllCharacters(db, id) {
     return db('characters')
@@ -189,7 +190,7 @@ const CharactersService = {
       char_id: result.char_id,
       user_id: result.user_id,
       party_id: result.party_id,
-      name: result.name,
+      name: xss(result.name),
       race: result.race,
       char_class: result.char_class,
       sub_class: result.sub_class,

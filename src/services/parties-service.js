@@ -49,7 +49,7 @@ const PartiesService = {
   serializePartyReturn(result) {
     return {
       party_id: result.party_id,
-      name: result.name,
+      name: xss(result.name),
     };
   },
   serializeParty(result) {
@@ -60,7 +60,7 @@ const PartiesService = {
         ...result.map(char => {
           return {
             char_id: char.char_id,
-            char_name: char.name,
+            char_name: xss(char.name),
             race: char.race,
             class: char.char_class,
             sub_class: char.sub_class,
